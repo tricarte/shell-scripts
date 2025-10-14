@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+# Drush wrapper
+
 path="${1}"
 shift
 
