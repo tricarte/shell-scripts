@@ -30,8 +30,8 @@ else
   c2=$(printf "$infos" | wc -l)
   if [[ $c1 == $c2 ]]; then
     action=$(paste -d':' <(printf "${cmds}") <(printf "${infos}") | column -t -s':' | sort | tee /tmp/lf_cmd_palette_cache | $FZF)
-    echo "${action}"
+    printf "${action}"
   else
-    echo "Error: Info strings do not match the count of cmds."
+    printf "Error: Info strings do not match the count of cmds."
   fi
 fi
