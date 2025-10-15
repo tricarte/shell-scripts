@@ -14,7 +14,8 @@ if [[ -f "/tmp/lf_cmd_palette_cache" ]] && [[ "/tmp/lf_cmd_palette_cache" -ot "$
 fi
 
 if [[ -f /tmp/lf_cmd_palette_cache ]]; then
-  action=$(cat /tmp/lf_cmd_palette_cache | $FZF)
+  CMD=$(cat /tmp/lf_cmd_palette_cache | $FZF)
+  printf "${CMD}"
 else
   cmds=$(grep -E ^cmd "${HOME}/.config/lf/lfrc" | cut -d' ' -f2)
   infos=$(grep -E '^# Info:' "${HOME}/.config/lf/lfrc" | cut -d' ' -f3-)
@@ -29,9 +30,10 @@ else
   c1=$(printf "$cmds" | wc -l)
   c2=$(printf "$infos" | wc -l)
   if [[ $c1 == $c2 ]]; then
-    action=$(paste -d':' <(printf "${cmds}") <(printf "${infos}") | column -t -s':' | sort | tee /tmp/lf_cmd_palette_cache | $FZF)
-    printf "${action}"
+    CMD=$(paste -d':' <(printf "${cmds}") <(printf "${infos}") | column -t -s':' | sort | tee /tmp/lf_cmd_palette_cache | $FZF)
+    printf "${CMD}"
   else
     printf "Error: Info strings do not match the count of cmds."
+    exit
   fi
 fi
