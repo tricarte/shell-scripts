@@ -6,7 +6,7 @@ output=$("${KITTY}" @ --to unix:/tmp/mykitty ls | jq '.[].tabs[] | select(.title
 
 if [[ -z $output ]]; then
   "${KITTY}" @ --to unix:/tmp/mykitty launch --type=tab \
-    --tab-title=mysnptab bash --norc -c '"${HOME}/bin/snp"'
+    --tab-title=mysnptab --copy-env bash --norc -c '"${HOME}/bin/snp"'
   # --tab-title=mysnptab bash --norc -c 'PERL5LIB=${HOME}/perl5/lib/perl5 "${HOME}/bin/snp"'
   # --tab-title=mysnptab --copy-env bash --norc -c 'PERL5LIB=${HOME}/perl5/lib/perl5 "${HOME}/bin/snp"'
 else
