@@ -17,5 +17,5 @@ sudo systemctl restart mariadb
 
 # TODO: kill existing servers first
 # TODO: add restart capability
-start-custom-lighttpd.sh
-start-fpm-drupal-server.sh
+start_custom_lighttpd
+start_fpm_drupal_server

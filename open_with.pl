@@ -43,7 +43,7 @@ if (defined $chosen) {
     # exec $exec;
     # system $exec;
     # fork $exec; # NOOOO
-    `kitty @ --to unix:/tmp/mykitty launch --type window bash --noprofile --norc -c "${exec}"`
+    `kitty @ --to unix:/tmp/mykitty launch --type window bash --noprofile --norc -c '${exec}'`
     
 
     # Because 'exec' will never return!
