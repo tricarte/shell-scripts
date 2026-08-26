@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
-rfiles=$(fd mp4 /media --exclude '*cc_*' --exclude 'cpvf' | wc -l)
-hfiles=$(fd ^cc_ /media | wc -l)
-pfiles=$(fd -e mp4 -p 'cpvf' /media | wc -l)
+rfiles=$(fd mp4 /media/veracrypt* --exclude '*cc_*' --exclude 'cpvf' | wc -l)
+hfiles=$(fd ^cc_ /media/veracrypt* | wc -l)
+pfiles=$(fd -e mp4 -p 'cpvf' /media/veracrypt* | wc -l)
 
 printf "Number of hash files: %d\n" "$hfiles"
 printf "Number of regular files: %d\n" "$rfiles"
