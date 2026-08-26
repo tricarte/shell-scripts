@@ -6,7 +6,12 @@
 # kill -SIGUSR1 ${LIGHTY_PID}
 
 LPIDFILE="/tmp/custom-lighttpd.pid"
-FPIDFILE="/tmp/php-fpm-845-drupal.pid"
+# FPIDFILE="/tmp/php-fpm-845-drupal.pid"
+# FPIDFILE="/tmp/php8.5-fpm-spc.pid"
+FPIDFILE="/tmp/php8.5-fpm-mtune-no-ini.pid"
+# FPIDFILE="/tmp/php8.5-fpm-mtune-march-no-ini.pid"
+# FPIDFILE="/tmp/php8.5-fpm-O3g0-no-ini.pid"
+# FPIDFILE="php-fpm-8313-drupal"
 
 if [[ -f "${LPIDFILE}" ]]; then
   LPID=$(cat "${LPIDFILE}")
