@@ -1,18 +1,33 @@
 #!/usr/bin/env bash
 
-ADMPATH="${HOME}/valet-park/adminer"
+ADMINER_ROOT="${HOME}/valet-park/adminer"
 
-if [[ ! -d "${ADMPATH}" ]]; then
-	echo "${ADMPATH} does not exist!"
-	exit 1
-fi
+if [[ -f "${ADMINER_ROOT}/index.php" ]]; then
+  current_version=$(grep -P '@version' "${ADMINER_ROOT}/index.php" | cut -d' ' -f3)
+  if [[ -n "${current_version}" ]]; then
+    echo "Checking for new version online..."
+    wget -qO "/tmp/index_adminer.php" https://www.adminer.org/latest-en.php
+    if [[ -f "/tmp/index_adminer.php" ]]; then
+      new_version=$(grep -P '@version' "/tmp/index_adminer.php" | cut -d' ' -f3)
+    else
+      echo "adminer couldnot be downloaded!"
+    fi
 
-if [[ -f "${ADMPATH}/index.php" ]]; then
-	mv "${ADMPATH}/index.php" "${ADMPATH}/index.php.bak"
-fi
-
-wget -qO "${ADMPATH}/index.php" "https://www.adminer.org/latest-en.php"
-
-if [[ -f "${ADMPATH}/index.php" ]]; then
-	echo "adminer updated!"
+    if [[ "${new_version}" != "${current_version}" ]]; then
+      if [[ -f "${ADMINER_ROOT}/index.php.bak" ]]; then
+        rm -f "${ADMINER_ROOT}/index.php.bak"
+      fi
+      mv "${ADMINER_ROOT}/index.php" "index.php.bak"
+      mv "/tmp/index_adminer.php" "${ADMINER_ROOT}/index.php"
+      echo "Updated!"
+      echo "Version updated from ${current_version} to ${new_version}"
+    else
+      echo "Already up to date!"
+      echo "Version: ${current_version}"
+    fi
+  else
+    echo "Currently installed version could not be read!"
+  fi
+else
+  echo "${ADMINER_ROOT}/index.php does not exist!"
 fi
