@@ -104,6 +104,9 @@ wget "${URL}" -qO "${HOME}/Downloads/${FILE}"
 
 if [[ -f "${HOME}/Downloads/${FILE}" ]]; then
   cd "${HOME}/Downloads"
+  if [[ -d "tpc.bak" ]]; then
+    rm -rf "tpc.bak"
+  fi
   if [[ -d "tpc" ]]; then
     mv tpc "tpc.bak"
   fi
